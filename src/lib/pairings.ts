@@ -4,15 +4,15 @@ import { type Team } from './teams';
 export type Pairing = {
   table: number | null;
   player1: string;
-  puntiPlayer1: number | '-';
+  player1Points: number | '-';
   player2: string;
-  puntiPlayer2: number | '-';
+  player2Points: number | '-';
 };
 
 export function generatePairings(
   data: typeof event.data,
   teams: Record<string, Team>,
-) {
+): Pairing[] {
   const currentRound = data.CurrentRoundNumber;
   const pairings: Pairing[] = [];
 
@@ -23,32 +23,32 @@ export function generatePairings(
       pairings.push({
         table: 0,
         player1: teams[match.Team1].PlayerName,
-        puntiPlayer1: teams[match.Team1].MatchPoints,
+        player1Points: teams[match.Team1].MatchPoints,
         player2: 'BYE',
-        puntiPlayer2: '-',
+        player2Points: '-',
       });
     } else if (match.Player1 === null) {
       pairings.push({
         table: 0,
         player1: teams[match.Team1].PlayerName,
-        puntiPlayer1: teams[match.Team1].MatchPoints,
+        player1Points: teams[match.Team1].MatchPoints,
         player2: 'LOSS',
-        puntiPlayer2: '-',
+        player2Points: '-',
       });
     } else if (match.Team2 !== undefined) {
       pairings.push({
         table: match.Number,
         player1: teams[match.Team1].PlayerName,
-        puntiPlayer1: teams[match.Team1].MatchPoints,
+        player1Points: teams[match.Team1].MatchPoints,
         player2: teams[match.Team2].PlayerName,
-        puntiPlayer2: teams[match.Team2].MatchPoints,
+        player2Points: teams[match.Team2].MatchPoints,
       });
       pairings.push({
         table: match.Number,
         player1: teams[match.Team2].PlayerName,
-        puntiPlayer1: teams[match.Team2].MatchPoints,
+        player1Points: teams[match.Team2].MatchPoints,
         player2: teams[match.Team1].PlayerName,
-        puntiPlayer2: teams[match.Team1].MatchPoints,
+        player2Points: teams[match.Team1].MatchPoints,
       });
     }
   });

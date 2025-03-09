@@ -1,9 +1,12 @@
 import event from '@/lib/event.json';
 import { generateTeams } from '@/lib/teams';
 import { generatePairings } from '@/lib/pairings';
+import { columns } from '@/components/pairings/columns';
+import H1 from '@/components/H1/H1';
+import DataTable from '@/components/Table/DataTable';
 
 export const metadata = {
-  title: `${event.data.EventName} - Round ${event.data.CurrentRoundNumber}`,
+  title: `Round ${event.data.CurrentRoundNumber} Pairings - ${event.data.EventName}`,
 };
 
 export default function Pairings() {
@@ -12,32 +15,11 @@ export default function Pairings() {
   const pairings = generatePairings(data, teams);
 
   return (
-    <main>
-      <h1 className="text-center text-2xl font-bold">
-        {data.EventName} - Round {data.CurrentRoundNumber}
-      </h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Table</th>
-            <th>Player 1</th>
-            <th>Points</th>
-            <th>Player 2</th>
-            <th>Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {pairings.map((pairing, index) => (
-            <tr key={index}>
-              <td>{pairing.table}</td>
-              <td>{pairing.player1}</td>
-              <td>{pairing.puntiPlayer1}</td>
-              <td>{pairing.player2}</td>
-              <td>{pairing.puntiPlayer2}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <main className="px-2">
+      <H1>
+        Round {data.CurrentRoundNumber} Pairings - {data.EventName}
+      </H1>
+      <DataTable columns={columns} data={pairings} />
     </main>
   );
 }
