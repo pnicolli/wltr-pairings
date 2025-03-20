@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "UserInfo" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "isSuperAdmin" BOOLEAN NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "UserInfo_id_fkey" FOREIGN KEY ("id") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);
